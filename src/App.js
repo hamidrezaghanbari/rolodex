@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react'
 import { CardList } from './components/card-list/card-list.component';
+import { SearchBox } from './components/search-box/search-box.component';
 
 
 export default class App extends Component {
@@ -13,6 +14,8 @@ export default class App extends Component {
       monsters: [],
       searchField: ''
     }
+
+    // this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
@@ -26,6 +29,14 @@ export default class App extends Component {
 
   }
 
+  // handleChange(e) {
+  //   this.setState({searchField: e.target.value})
+  // }
+
+  handleChange = (e) => {
+    this.setState({searchField: e.target.value})
+  }
+
   render() {
     const {monsters, searchField} = this.state
     const filteredMonsters = monsters.filter(monster => (
@@ -36,7 +47,8 @@ export default class App extends Component {
       <div className="app">
         <h1 id="title">list of monsters</h1>
 
-        <input type="text" onChange={e => this.setState({searchField: e.target.value})} placeholder="search in monsters" />
+        <SearchBox placeholder="search monster ..." type="search"
+            handleChange={this.handleChange} />
 
         <CardList monsters={filteredMonsters} />
       </div>
